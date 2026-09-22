@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nebula Docker Panel</title>
+<style>
+:root{--bg:#0b0d12;--panel:#11151d;--panel2:#171c26;--line:#252c38;--text:#e8edf5;--muted:#8994a5;--accent:#7c5cff;--good:#35d07f;--danger:#ff5d73}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Arial}
+a{color:inherit;text-decoration:none}.layout{display:flex;min-height:100vh}.side{width:240px;background:#0d1016;border-right:1px solid var(--line);padding:22px 14px}.brand{font-weight:800;font-size:20px;padding:10px 12px 28px}.brand span{color:var(--accent)}.nav a{display:block;padding:12px;border-radius:9px;color:var(--muted);margin:5px 0}.nav a:hover,.nav .active{background:var(--panel2);color:#fff}.main{flex:1;padding:28px;max-width:1400px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.title h1{margin:0 0 5px;font-size:26px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.metric{font-size:27px;font-weight:800;margin:8px 0}.bar{height:7px;background:#252b36;border-radius:20px;overflow:hidden}.fill{height:100%;background:var(--accent)}.section{margin-top:22px}.vmgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}.vm{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#163c2a;color:var(--good);font-size:12px}.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--accent);color:white;cursor:pointer;font-weight:700}.btn.secondary{background:#252b36}.btn.danger{background:#4b1d28}.row{display:flex;gap:8px;flex-wrap:wrap}.form{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.input{background:#0b0e14;color:#fff;border:1px solid var(--line);border-radius:8px;padding:11px;width:100%}.flash{background:#211d31;border:1px solid #3b315e;padding:11px;border-radius:9px;margin-bottom:14px}.terminal{background:#05070a;border:1px solid var(--line);border-radius:10px;padding:14px;font-family:ui-monospace,monospace;min-height:360px;white-space:pre-wrap;overflow:auto}.termrow{display:flex;margin-top:10px}.termrow input{flex:1}.login{min-height:100vh;display:grid;place-items:center}.loginbox{width:min(390px,92vw);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px}.loginbox input{margin:7px 0}.small{font-size:12px;color:var(--muted)}
+@media(max-width:800px){.side{display:none}.main{padding:18px}.grid,.form{grid-template-columns:1fr}.top{align-items:flex-start;gap:10px;flex-direction:column}}
+</style>
+</head>
+<body>
+{% block body %}{% endblock %}
+</body>
+</html>

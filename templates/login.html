@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block body %}
+<div class="login"><div class="loginbox">
+<div class="brand">NEBULA<span>DOCKER</span></div>
+<h2>Sign in</h2><p class="muted">Container management panel</p>
+{% with messages=get_flashed_messages() %}{% for m in messages %}<div class="flash">{{m}}</div>{% endfor %}{% endwith %}
+<form method="post">
+<input class="input" name="username" placeholder="Username" autocomplete="username" required>
+<input class="input" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+<button class="btn" style="width:100%;margin-top:8px">Login</button>
+</form>
+<p class="small">Default username: admin. Set ADMIN_PASS in Render before production use.</p>
+</div></div>
+{% endblock %}

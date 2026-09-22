@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block body %}
+<div class="layout"><aside class="side"><div class="brand">NEBULA<span>DOCKER</span></div><div class="nav"><a class="active" href="/dashboard">Dashboard</a><a href="#create">Create VM</a><a href="/logout">Logout</a></div></aside>
+<main class="main">
+<div class="top"><div class="title"><h1>Dashboard</h1><div class="muted">Docker VM resource pool</div></div><a class="btn" href="#create">+ Create VM</a></div>
+{% with messages=get_flashed_messages() %}{% for m in messages %}<div class="flash">{{m}}</div>{% endfor %}{% endwith %}
+<div class="grid">
+{% for label,used,total,unit in [('RAM',used_ram,pool_ram,'MB'),('CPU',used_cpu,pool_cpu,''),('Storage',used_storage,pool_storage,'GB')] %}
+<div class="card"><div class="muted">{{label}}</div><div class="metric">{{used}} {{unit}} <span class="muted" style="font-size:14px">/ {{total}} {{unit}}</span></div><div class="bar"><div class="fill" style="width:{{ [100, (used/total*100 if total else 0)]|min }}%"></div></div></div>
+{% endfor %}
+</div>
+<div class="section card" id="create"><h2>Create VM</h2><p class="muted">Docker-based isolated environment.</p>
+<form class="form" method="post" action="/vm/create">
+<input class="input" name="name" placeholder="VM name" required>
+<select class="input" name="ram_mb"><option value="512">512 MB RAM</option><option value="1024">1 GB RAM</option><option value="2048">2 GB RAM</option><option value="4096">4 GB RAM</option><option value="8192">8 GB RAM</option><option value="16384">16 GB RAM</option></select>
+<select class="input" name="cpu"><option value="0.5">0.5 CPU</option><option value="1">1 CPU</option><option value="2">2 CPU</option><option value="4">4 CPU</option><option value="8">8 CPU</option></select>
+<select class="input" name="storage_gb"><option value="1">1 GB storage</option><option value="5">5 GB storage</option><option value="10">10 GB storage</option><option value="20">20 GB storage</option><option value="50">50 GB storage</option></select>
+<button class="btn">Create Docker VM</button>
+</form></div>
+<div class="section"><div class="top"><h2>My VMs</h2><span class="muted">{{vm_count}} / 3</span></div>
+<div class="vmgrid">{% for vm in vms %}<a class="vm" href="/vm/{{vm.id}}"><div style="display:flex;justify-content:space-between"><b>{{vm.name}}</b><span class="badge">{{vm.status}}</span></div><p class="muted">Docker · {{vm.ram_mb}} MB · {{vm.cpu}} CPU · {{vm.storage_gb}} GB</p><span class="btn secondary">Open terminal →</span></a>{% else %}<div class="card muted">No VMs yet.</div>{% endfor %}</div></div>
+</main></div>
+{% endblock %}

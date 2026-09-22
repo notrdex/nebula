@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block body %}
+<div class="layout"><aside class="side"><div class="brand">NEBULA<span>DOCKER</span></div><div class="nav"><a href="/dashboard">Dashboard</a><a class="active" href="#">Terminal</a><a href="/logout">Logout</a></div></aside>
+<main class="main"><div class="top"><div class="title"><h1>{{vm.name}}</h1><div class="muted">Docker container · {{vm.ram_mb}} MB RAM · {{vm.cpu}} CPU · {{vm.storage_gb}} GB requested storage</div></div>
+<div class="row">
+<form method="post" action="/vm/{{vm.id}}/action"><button class="btn secondary" name="action" value="start">Start</button><button class="btn secondary" name="action" value="restart">Restart</button><button class="btn danger" name="action" value="stop">Stop</button></form>
+</div></div>
+<div class="card"><div class="terminal" id="out">Nebula terminal ready.\nType a command below.</div><div class="termrow"><input class="input" id="cmd" placeholder="e.g. uname -a" autocomplete="off"><button class="btn" onclick="runCmd()">Run</button></div></div>
+<div class="section"><form method="post" action="/vm/{{vm.id}}/action" onsubmit="return confirm('Delete this VM?')"><button class="btn danger" name="action" value="delete">Delete VM</button></form></div>
+</main></div>
+<script>
+const out=document.getElementById('out'), cmd=document.getElementById('cmd');
+async function runCmd(){
+  const c=cmd.value.trim(); if(!c)return;
+  out.textContent += "\\nroot@container:~# "+c+"\\n";
+  const r=await fetch(location.pathname+'/exec',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({command:c})});
+  const j=await r.json();
+  out.textContent += j.ok ? j.output : ("ERROR: "+j.error+"\\n");
+  out.scrollTop=out.scrollHeight; cmd.value='';
+}
+cmd.addEventListener('keydown',e=>{if(e.key==='Enter')runCmd()});
+</script>
+{% endblock %}

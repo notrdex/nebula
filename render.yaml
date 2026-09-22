@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: nebula-docker-panel
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MAX_VMS
+        value: "3"
+      - key: POOL_RAM_MB
+        value: "32768"
+      - key: POOL_CPU
+        value: "8"
+      - key: POOL_STORAGE_GB
+        value: "100"
+      - key: CONTAINER_IMAGE
+        value: "ubuntu:24.04"
+      # Set DOCKER_HOST to a reachable Docker daemon you control.
+      # Do not put Docker TLS credentials in this file.
+      - key: DOCKER_HOST
+        sync: false
